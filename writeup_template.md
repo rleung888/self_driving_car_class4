@@ -120,54 +120,82 @@ Combined S Channel and Combined gradient.
 ![alt text][image10]
 
 It looks like the S Channel and Combined gradient binary has fewer objects on the side of the road than S Channel and SobelX binary.  So for the rest of the calculation.  I use this format.
-![alt text][image3]
-![alt text][image3]
+
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  
+
+I started with the hard coded position from the straight_line1.jpg.  
 
 ```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
+    src = np.float32([[599,450],[258,685],[1051,685],[681,450]])
+    dst = np.float32([[258,0], [258, 720], [1051,720],[1051,0]])
+```    
+
+However, I try to avoid the problem on different image size, I change the hard coded position into percentage
+
+
+    [599,450] = width x 0.4680, height x 0.625     
+    [258, 685] = width x 0.2016, height x 0.9514    
+    [1051, 685] = width x 0.8211, height x 0.9514    
+    [681, 450] = width x 0.5320, height x 0.625
+
+I create a offset to bring the X-axis closer to keep the line within the image.   Some of the wide turn have the line out of the screen.  With the line closer, it will not affect the curvature.
+```python
+    offset = 150
+    src = np.float32([[w*0.4680, h*0.6250],[w*0.2016,h*0.9514],[w*0.8211,h*0.9514],[w*0.5320,h*0.625]])
+    dst = np.float32([[w*0.2016 + offset,0], [w*0.2016 + offset, img.shape[0]], [w*0.8211 - offset,img.shape[0]],[w*0.8211 - offset,0]])
 ```
-
-This resulted in the following source and destination points:
-
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![alt text][image11]
+
+Applied to other test images.
+[image12][image13][image14][image15][image16][image17]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
-![alt text][image5]
+First of all, apply the histogram on the image to identify the peak area of image.  The left peak is the left land and right peak is the right lane. 
+```python
+histogram = np.sum(binary_warped[binary_warped.shape[0]//2:,:], axis=0)
+```
+The second part is the using the sliding windows method to draw on the visualization image
+[image18]
+Then append the indics to the list
+Applied the second ploynomail to the array
+
+```python
+    left_fit = np.polyfit(lefty, leftx, 2)
+    right_fit = np.polyfit(righty, rightx, 2)
+```
+
+![alt text][image18][image19]
+
+And also applied the same for the test images
+![alt text][image20][image21][image22][image23][image24][image25]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+For curvature, I use the parameter from the example for my calculation.  I used the sameple code of the lesson to build the curvature.
+    ym_per_pix = 30/720 # meters per pixel in y dimension
+    xm_per_pix = 3.7/700 # meters per pixel in x dimensio
+I applied the ploynomial and fit the value into the formala to get teh left curvature in meter and right curveture in meter
+    
+I found out if the value is super large, more likely > 5000, it represent it is a straight line.   
+
+For the position of the vehicle, I have the average of the left lane and right lane bottom.  Then I have it minus the center of the image which I assume the center of the camera.   Multiple it by xm_per_pix is the position.
+
+
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I applied the pipeline on the test images
 
-![alt text][image6]
+![alt text][image33][image34][image35][image36][image37][image38]
+
 
 ---
 
@@ -175,7 +203,8 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+[video2]
+Here's a [link to my video result](./output_project_video.mp4)
 
 ---
 
@@ -183,4 +212,5 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+I still see some shadow on my warped images.   I tried the pipeline on the challenge video.   It basically failed because the car is on the right side of a curved road, it is including picture on the incoming traffic on the opposite side.   The left lane and right lane are both on the area where >= image.shape[1]/2.   So it will failed to detect the left lane and use the further lane as the left lane.  
+
