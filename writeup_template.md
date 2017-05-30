@@ -21,7 +21,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/distort_corrected_calibration1.png "Undistorted Chess Board"
+[image1]: ./output_images/distorted_corrected_calibration1.png "Undistorted Chess Board"
 [image2]: ./output_images/undistorted_straight_line1.png "Undistorted straight_line1.jpg"
 [image3]: ./output_images/sobelx_thresh.png "Threshold X Gradient"
 [image4]: ./output_images/sobely_thresh.png "Threshold y Gradient"
@@ -69,9 +69,9 @@ The goals / steps of this project are the following:
 
 ---
 
-### Writeup / README
+### Writeup / README  -- COMPLETED
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  The write up is in Markdown format.  This write up include the explanation on how to resolve the criteria.
 
 You're reading it!
 
@@ -84,6 +84,8 @@ The code for this step is contained in the first code cell of the IPython notebo
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+
+I used the calibration1.jpg original image and show what the calibration looks like afterward.
 
 ![alt text][image1]
 
