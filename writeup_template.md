@@ -1,7 +1,5 @@
 ## Writeup Template
 
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
 ---
 
 **Advanced Lane Finding Project**
@@ -18,6 +16,9 @@ The goals / steps of this project are the following:
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.  -- COMPLETED
 * Projected video with land boundaries and numerical estimate of curvature and vehicle position -- COMPLETED
 * (Optional) Challenge Video with land boundaries and curvature -- NOT COMPLETED
+
+By: Raymond Leung
+Date: 2017-05-29
 
 [//]: # (Image References)
 
