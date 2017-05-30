@@ -153,7 +153,12 @@ I verified that my perspective transform was working as expected by drawing the 
 ![alt text][image11]
 
 Applied to other test images.
-[image12][image13][image14][image15][image16][image17]
+![image12]
+![image13]
+![image14]
+![image15]
+![image16]
+![image17]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
@@ -175,7 +180,12 @@ Applied the second ploynomail to the array
 ![alt text][image18][image19]
 
 And also applied the same for the test images
-![alt text][image20][image21][image22][image23][image24][image25]
+![alt text][image20]
+![image21]
+![image22]
+![image23]
+![image24]
+![image25]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -194,7 +204,12 @@ For the position of the vehicle, I have the average of the left lane and right l
 
 I applied the pipeline on the test images
 
-![alt text][image33][image34][image35][image36][image37][image38]
+![alt text][image33]
+![image34]
+![image35]
+![image36]
+![image37]
+![image38]
 
 
 ---
@@ -203,7 +218,7 @@ I applied the pipeline on the test images
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-[video2]
+![video2]
 Here's a [link to my video result](./output_project_video.mp4)
 
 ---
