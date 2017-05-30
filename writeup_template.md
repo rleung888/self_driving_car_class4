@@ -222,6 +222,10 @@ I applied the pipeline on the test images
 ![video2]
 Here's a [link to my video result](./output_project_video.mp4)
 
+Add the logic as per project review to fix the off lanes in most of the cases.  
+
+
+
 ---
 
 ### Discussion
@@ -229,4 +233,15 @@ Here's a [link to my video result](./output_project_video.mp4)
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 I still see some shadow on my warped images.   I tried the pipeline on the challenge video.   It basically failed because the car is on the right side of a curved road, it is including picture on the incoming traffic on the opposite side.   The left lane and right lane are both on the area where >= image.shape[1]/2.   So it will failed to detect the left lane and use the further lane as the left lane.  
+
+Add few more potential problem per review for future discussion.
+
+Use the lane center to offset to determine the lane cover is correct.  Use the previous frame data, call it last good known data, the current frame.
+
+The perspective transform is bit tricky, what if if it going up the slope or down the slope.  It will not be correct, the distance will change.   The distance will be a parameter for measurement.
+
+
+
+
+
 
